@@ -76,5 +76,10 @@ namespace PizzaMaster
         {
             Frame.Navigate(typeof(EmployeesListPage));
         }
+
+        private void ProductsList_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ProductsListPage));
+        }
     }
 }

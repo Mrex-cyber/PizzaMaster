@@ -11,6 +11,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="employeesListButton" Label="Employees" Icon="People" Click="EmployeesList_Click"></AppBarButton>
+            <AppBarButton x:Name="productsListButton" Label="Products" Icon="List" Click="ProductsList_Click"></AppBarButton>
             
             <AppBarButton x:Name="saveButton" Label="Add" Icon="Add" Click="saveButton_Click"></AppBarButton>
             <AppBarButton x:Name="editButton" Label="Change" Icon="Edit" Click="editButton_Click"></AppBarButton>

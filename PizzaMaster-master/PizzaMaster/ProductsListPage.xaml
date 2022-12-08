@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="PizzaMaster.ProductsListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PizzaMaster"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBox Name="nameBox" PlaceholderText="Name" Margin="10"></TextBox>
+            <TextBox Name="sellingPrice" PlaceholderText="Sell" Margin="10"></TextBox>
+            <TextBox Name="buyingPrice" PlaceholderText="Buy" Margin="10"></TextBox>
+            <ComboBox x:Name="locationsList" PlaceholderText="Location" Margin="10"></ComboBox>
+            <TextBox Name="amountBox" PlaceholderText="Amount" Margin="10"></TextBox>
+            <TextBlock Name="earnings" Margin="10" Text="Earnings: "></TextBlock>
+            
+            <Button Content="Add" Click="Add_Click" Margin="10"></Button>
+            <Button Content="Back" Click="Back_Click" Margin="10"></Button>
+        </StackPanel>
+        <ListView x:Name="productsList" Grid.Row="1" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Product">
+                    <StackPanel>
+                        <TextBlock FontSize="16" Text="{x:Bind Name}"></TextBlock>
+                        <TextBlock FontSize="16" Text="{x:Bind SellingPrice}"></TextBlock>
+                        <TextBlock FontSize="16" Text="{x:Bind BuyingPrice}"></TextBlock>
+                        <TextBlock FontSize="16" Text="{x:Bind Location}"></TextBlock>
+                        <TextBlock FontSize="16" Text="{x:Bind Amount}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
