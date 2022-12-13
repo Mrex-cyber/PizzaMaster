@@ -26,7 +26,6 @@ namespace PizzaMaster
     public sealed partial class EmployeesListPage : Page
     {
         ObservableCollection<Employee> employees;
-        List<Location> locations;
         public EmployeesListPage()
         {
             this.InitializeComponent();
@@ -35,19 +34,19 @@ namespace PizzaMaster
         }
         private void PhonesListPage_Loaded(object sender, RoutedEventArgs e)
         {
+            titleText.Text = MainPage.selectedLocation.ToString();
             using (var db = new LocationsContext())
             {
-                employees = new ObservableCollection<Employee>(db.Employees.Include(l => l.Location).ToList());
-                locations = db.Locations.ToList();
+                if (MainPage.selectedLocation != null)
+                {
+                    employees = new ObservableCollection<Employee>(db.Employees.Include(l => l.Location).Where<Employee>(emp => emp.Location == MainPage.selectedLocation).ToList());
+                }               
             }
-
-            locationsList.ItemsSource = locations;
             employeesList.ItemsSource = employees;
         }
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            Location location = locationsList.SelectedItem as Location;
-            if (location != null)
+            if (MainPage.selectedLocation != null)
             {
                 Employee employee = new Employee()
                 {
@@ -55,12 +54,12 @@ namespace PizzaMaster
                     Ages = Int32.Parse(agesBox.Text),
                     Salary = Int32.Parse(salaryBox.Text),
                     Position = "Employee",
-                    Location = location,
+                    Location = MainPage.selectedLocation,
                 };
 
                 using (var db = new LocationsContext())
                 {
-                    db.Locations.Attach(location);
+                    db.Locations.Attach(MainPage.selectedLocation);
                     db.Employees.Add(employee);
                     if (db.SaveChanges() > 0)
                     {

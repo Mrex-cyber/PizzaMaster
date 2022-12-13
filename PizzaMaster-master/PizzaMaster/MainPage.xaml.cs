@@ -22,6 +22,8 @@ namespace PizzaMaster
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public static Location selectedLocation;
         public MainPage()
         {
             this.InitializeComponent();
@@ -74,7 +76,15 @@ namespace PizzaMaster
 
         private void EmployeesList_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(EmployeesListPage));
+            if (locationsList.SelectedItem != null)
+            {
+                Location location = locationsList.SelectedItem as Location;
+                if (location != null)
+                {
+                    Frame.Navigate(typeof(EmployeesListPage));
+                    selectedLocation = location;
+                }
+            }
         }
 
         private void ProductsList_Click(object sender, RoutedEventArgs e)
