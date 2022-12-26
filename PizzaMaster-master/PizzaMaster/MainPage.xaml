@@ -24,8 +24,10 @@
                 <DataTemplate x:DataType="local:Location">
                     <StackPanel>
                         <TextBlock Text="{Binding City}" FontSize="26" />
-                        <TextBlock Text="{Binding Employees.Count}" FontSize="26"/>
-                        <TextBlock Text="{Binding Earnings}" FontSize="26"/>
+                        <TextBlock FontSize="18" Text="Employees: "></TextBlock>
+                        <TextBlock Margin="5 0 0 15" Text="{Binding Employees.Count}" FontSize="18"/>
+                        <TextBlock FontSize="18" Text="Earnings: "></TextBlock>
+                        <TextBlock Margin="1 0 0 15" Text="{Binding Earnings}" FontSize="18"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="PizzaMaster.LocationPage"
+    x:Class="PizzaMaster.LocationPageEditing"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:PizzaMaster"
@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Margin="10 0 0 0">
+       <StackPanel Margin="10 0 0 0">
             <TextBlock x:Name="headerBlock" Text="Adding location" Style="{ThemeResource HeaderTextBlockStyle}"></TextBlock>
             <TextBlock>Location</TextBlock>
             <TextBox x:Name="nameBox"></TextBox>

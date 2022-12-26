@@ -124,8 +124,11 @@
       <DependentUpon>EmployeesListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Location.cs" />
-    <Compile Include="LocationPage.xaml.cs">
-      <DependentUpon>LocationPage.xaml</DependentUpon>
+    <Compile Include="EmployeePageEditing.xaml.cs">
+      <DependentUpon>EmployeePageEditing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocationPageEditing.xaml.cs">
+      <DependentUpon>LocationPageEditing.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocationsContext.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -161,7 +164,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LocationPage.xaml">
+    <Page Include="EmployeePageEditing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LocationPageEditing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

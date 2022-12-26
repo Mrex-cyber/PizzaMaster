@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -24,25 +26,45 @@ namespace PizzaMaster
     {
 
         public static Location selectedLocation;
+        public double sumOfLocationEarnings;
+
         public MainPage()
         {
             this.InitializeComponent();
             this.Loaded += MainPage_Loaded;
 
-
         }
-
+        
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             using (LocationsContext db = new LocationsContext())
             {
                 locationsList.ItemsSource = db.Locations.ToList();
-            }
+                var locations = db.Locations
+                    .Include(l => l.Products)
+                    .Include(l => l.Employees)
+                    .ToList();
+
+                foreach (var location in locations)
+                {
+                    foreach (var product in location.Products)
+                    {
+                        sumOfLocationEarnings += product.Earnings;
+                    }
+                    location.Earnings = sumOfLocationEarnings;
+                }
+
+                foreach (var location in locations)
+                {                    
+                    location.Employees = location.Employees;
+                }
+
+            }                   
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(LocationPage));
+            Frame.Navigate(typeof(LocationPageEditing));
         }
 
         private void editButton_Click(object sender, RoutedEventArgs e)
@@ -52,17 +74,28 @@ namespace PizzaMaster
                 Location location = locationsList.SelectedItem as Location;
                 if (location != null)
                 {
-                    Frame.Navigate(typeof(LocationPage), location.Id);
+                    Frame.Navigate(typeof(EmployeesListPage), location.Id);
                 }
             }
         }
 
-        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        private async void deleteButton_Click(object sender, RoutedEventArgs e)
         {
+           
             if (locationsList.SelectedItem != null)
             {
                 Location location = locationsList.SelectedItem as Location;
-                if (location != null)
+                ContentDialog deleteLocationDialog = new ContentDialog()
+                {
+                    Title = "Delete the " + location + " location",
+                    Content = "Are you sure of deleting?",
+                    PrimaryButtonText = "Yes, of course",
+                    SecondaryButtonText = "No, cancel it"
+                };
+
+                ContentDialogResult resultOfDialog = await deleteLocationDialog.ShowAsync();
+
+                if (location != null && resultOfDialog == ContentDialogResult.Primary)
                 {
                     using (LocationsContext db = new LocationsContext())
                     {
@@ -78,18 +111,24 @@ namespace PizzaMaster
         {
             if (locationsList.SelectedItem != null)
             {
-                Location location = locationsList.SelectedItem as Location;
-                if (location != null)
+                selectedLocation = locationsList.SelectedItem as Location;
+                if (selectedLocation != null)
                 {
                     Frame.Navigate(typeof(EmployeesListPage));
-                    selectedLocation = location;
                 }
             }
         }
 
         private void ProductsList_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ProductsListPage));
+            if (locationsList.SelectedItem != null)
+            {
+                selectedLocation = locationsList.SelectedItem as Location;
+                if (selectedLocation != null)
+                {
+                    Frame.Navigate(typeof(ProductsListPage));
+                }
+            }
         }
     }
 }

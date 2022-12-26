@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Windows.UI.Xaml;
 
 namespace PizzaMaster
 {
@@ -12,6 +14,8 @@ namespace PizzaMaster
         public DbSet<Location> Locations { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public string DbPath { get; }
         public LocationsContext()
         {
             Database.EnsureCreated();
@@ -19,7 +23,7 @@ namespace PizzaMaster
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=Locations.db");
+            optionsBuilder.UseSqlite($"Data Source=Pizza.db");
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

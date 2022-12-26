@@ -20,10 +20,10 @@ namespace PizzaMaster
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LocationPage : Page
+    public sealed partial class LocationPageEditing : Page
     {
         Location location;
-        public LocationPage()
+        public LocationPageEditing()
         {
             this.InitializeComponent();
         }
